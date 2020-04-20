@@ -34,6 +34,22 @@ spec:
       - name: root-mount
         hostPath:
           path: /
+      - name: dbus
+        hostPath:
+          path: /var/run/dbus
+          type: Directory
+      - name: run-systemd
+        hostPath:
+          path: /run/systemd
+          type: Directory
+      - name: etc-systemd
+        hostPath:
+          path: /etc/systemd
+          type: Directory
+      - name: var-log
+        hostPath:
+          path: /var/log
+          type: Directory
       - name: entrypoint
         configMap:
           name: entrypoint
@@ -52,6 +68,13 @@ spec:
           mountPath: /root
         - name: entrypoint
           mountPath: /scripts
+        - name: dbus
+          mountPath: /var/run/dbus
+        - name: run-systemd
+          mountPath: /run/systemd
+        # Allows to peek into systemd units that are baked into the official EKS AMI
+        - name: etc-systemd
+          mountPath: /etc/systemd
       containers:
       - image: "gcr.io/google-containers/pause:2.0"
         name: pause
