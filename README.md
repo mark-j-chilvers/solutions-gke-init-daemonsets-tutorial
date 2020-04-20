@@ -17,7 +17,3 @@ This procedure includes privileged and un-privileged commands.
 
 The [`DaemonSet`](daemon-set.yaml) descriptor defines the DaemonSet that executes the [init container](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
 that runs the initialization procedure.
-
-### Verification script
-
-This [`verify-init.sh`](verify-init.sh) runs quick checks on the nodes of the cluster to verify that the initialization completed successfully.
