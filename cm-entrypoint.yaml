@@ -28,11 +28,18 @@ data:
     ROOT_MOUNT_DIR="${ROOT_MOUNT_DIR:-/root}"
 
     # We use chroot to run the following commands in the host root (mounted as the /root volume in the container)
+    
+    # newvalues - what we'll add to the daemon.json
     newvalues='"log-opts":{\n"max-size": "5m",\n"max-file": "3" }\n'
+    
+    # We'll insert the log-opts after this line
     match='"storage-driver": "overlay2"'
+    
+    # We'll remove those values from /etc/default/docker - or the daemon will NOT be happy (set in 2 places)
     rem='--log-opt=max-size=10m --log-opt=max-file=5 '
-    echo "amend daemon.json"
+    echo "Amend daemon.json"
     chroot "${ROOT_MOUNT_DIR}" sed -i "s/$match/$match,\n$newvalues/" /etc/docker/daemon.json
+    echo "Amend /etc/default/docker"
     chroot "${ROOT_MOUNT_DIR}" sed -i "s/$rem//" /etc/default/docker
     echo "restart docker"
     chroot "${ROOT_MOUNT_DIR}" systemctl restart docker
