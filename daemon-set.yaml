@@ -34,7 +34,7 @@ spec:
       - name: root-mount
         hostPath:
           path: /
-       - name: dbus
+      - name: dbus
         hostPath:
           path: /var/run/dbus
           type: Directory
@@ -49,6 +49,10 @@ spec:
       - name: var-log
         hostPath:
           path: /var/log
+          type: Directory
+      - name: usr-bin
+        hostPath:
+          path: /usr/bin
           type: Directory
       # mainly for dockerd access via /var/run/docker.sock
       - name: var-run
@@ -91,7 +95,7 @@ spec:
       - image: ubuntu:18.04
         name: node-initializer
         command:
-        - systemctl
+        - /usr/bin/systemctl
         - restart
         - docker
         #env:
@@ -123,6 +127,8 @@ spec:
           mountPath: /var/log
         - name: var-run
           mountPath: /var/run
+        - name: usr-bin
+          mountPath: /usr/bin
         - name: run
           mountPath: /run
         - name: usr-lib-systemd
