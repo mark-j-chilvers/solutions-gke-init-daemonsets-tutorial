@@ -28,11 +28,11 @@ data:
     ROOT_MOUNT_DIR="${ROOT_MOUNT_DIR:-/root}"
 
     # We use chroot to run the following commands in the host root (mounted as the /root volume in the container)
-    newvalues=', "log-opts":{\n"max-size": "5m",\n"max-file": "3" }\n'
-    match='}'
+    newvalues='"log-opts":{\n"max-size": "5m",\n"max-file": "3" }\n'
+    match='"storage-driver": "overlay2"'
     rem='--log-opt=max-size=10m --log-opt=max-file=5 '
     echo "amend daemon.json"
-    chroot "${ROOT_MOUNT_DIR}" sed -i "s/$match/$newvalues\n$match/" /etc/docker/daemon.json
+    chroot "${ROOT_MOUNT_DIR}" sed -i "s/$match/$match,\n$newvalues/" /etc/docker/daemon.json
     chroot "${ROOT_MOUNT_DIR}" sed -i "s/$rem//" /etc/default/docker
     echo "restart docker"
     chroot "${ROOT_MOUNT_DIR}" systemctl restart docker
