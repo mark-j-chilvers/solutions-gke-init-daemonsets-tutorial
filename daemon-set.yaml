@@ -79,10 +79,10 @@ spec:
           path: /etc/sudoers.d
           type: Directory
       # For debugging .env files produced by eksctl
-      - name: etc-eksctl
-        hostPath:
-          path: /etc/eksctl
-          type: Directory
+      #- name: etc-eksctl
+      #  hostPath:
+      #    path: /etc/eksctl
+      #    type: Directory
       #- name: entrypoint
       #  configMap:
       #    name: entrypoint
@@ -132,8 +132,8 @@ spec:
         - name: etc-sudoers
           mountPath: /etc/sudoers.d
         # For debugging .env files produced by eksctl
-        - name: etc-eksctl
-          mountPath: /etc/eksctl
+        #- name: etc-eksctl
+        #  mountPath: /etc/eksctl
       containers:
       - image: "gcr.io/google-containers/pause:2.0"
         name: pause
