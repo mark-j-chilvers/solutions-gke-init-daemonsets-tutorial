@@ -39,8 +39,8 @@ data:
     # We'll remove those values from /etc/default/docker - or the daemon will NOT be happy (set in 2 places)
     rem='--log-opt=max-size=10m --log-opt=max-file=5 '
     echo "Amend daemon.json"
-    chroot "${ROOT_MOUNT_DIR}" sed "/$match/a\,\n$newvalues" $filename
+    #chroot "${ROOT_MOUNT_DIR}" sed "/$match/a\,\n$newvalues" $filename
     echo "Amend /etc/default/docker"
-    chroot "${ROOT_MOUNT_DIR}" sed -i "s/$rem//" /etc/default/docker
+    #chroot "${ROOT_MOUNT_DIR}" sed -i "s/$rem//" /etc/default/docker
     echo "restart docker"
-    chroot "${ROOT_MOUNT_DIR}" systemctl restart docker
+    chroot "${ROOT_MOUNT_DIR}" /usr/bin/systemctl restart docker
