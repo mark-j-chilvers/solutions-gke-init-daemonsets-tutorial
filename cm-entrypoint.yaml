@@ -43,4 +43,4 @@ data:
     echo "Amend /etc/default/docker"
     #chroot "${ROOT_MOUNT_DIR}" sed -i "s/$rem//" /etc/default/docker
     echo "restart docker"
-    chroot "${ROOT_MOUNT_DIR}" /usr/bin/systemctl restart docker
+    chroot "${ROOT_MOUNT_DIR}" systemctl restart docker
